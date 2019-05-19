@@ -89,19 +89,27 @@ def main():
     seeds = list(seeds_dict.keys())
     labels_char = labels[:-1]
     labels = list()
+    labels_org = list()
+    labels_rom = list()
     for label in labels_char:
-        #print(label)
         if "*" in label:
             label = label.split()[0]
             if label in seeds:
+                labels_org.append(label)
                 label = pinyin.get(label, format="strip").upper()
                 label = "*{}*".format(label)
-                print(label)
                 labels.append(label)
             else:
+                labels_org.append(label)
                 labels.append(pinyin.get(label, format="strip").upper())
         else:
+            labels_org.append(label)
             labels.append(pinyin.get(label))
+
+
+    with open(os.path.join("..", "fig", "graph_nx_community.txt"), 'w') as f:
+        for i, item in enumerate(labels):
+            f.write("{} <- {}\n".format(item, labels_org[i]))
 
     outname = os.path.join("..", "fig", "graph_nx_community.png")
     gen_graph(DELTA, labels, figname=outname)

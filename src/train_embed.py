@@ -21,6 +21,7 @@ def split_count(s, n):
     tmp_lst = [''.join(x) for x in zip(*[list(s[z::n]) for z in range(n)])]
     return [re.sub("\n", "", tmp) for tmp in tmp_lst]
 
+
 class WindowIter(object):
     def __init__(self, lst):
         self.lst = lst
@@ -57,22 +58,7 @@ def main():
     filepath = os.path.join("..", "mdl", "slingerland_embeddings.pcl")
     with open(filepath, 'wb') as handle:
         pickle.dump(DB_out, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
+
 
 if __name__ == '__main__':
     main()
-"""test
-textname = list(data.keys())[0]
-tokens = char_tokenize(data[textname])
-queries = list(seeds.keys())
-freq = dict()
-for query in queries:
-    for token in tokens:
-        if query == token:
-            print(query, token, seeds[query], textname)
-
-textname = list(data.keys())[0]
-chunks = split_count(data[textname], 40)
-for i in range(10):
-    print(chunks[i])
-"""
