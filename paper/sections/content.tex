@@ -1,0 +1,120 @@
+% SHORTCUTS
+	%\fcolorbox{black}{yellow}{}
+
+%%%%% PRELUDE %%%%%
+%\section{On Artificial Intelligence}
+
+
+%\subsection{Food to media hype}
+%\begin{frame}{OpenAI's transformer-based model}
+
+%\setbeamercolor{coloredboxstuff}{fg=black,bg=white!80!green}
+%\begin{beamercolorbox}[wd=1\textwidth,sep=1em]{coloredboxstuff}
+%	\textcolor{red}{\textbf{OpenAI on GPT-2}}\\
+%	``We've trained a large-scale unsupervised language model which generates coherent paragraphs of text, achieves state-of-the-art performance on many language modeling benchmarks, and performs rudimentary reading comprehension, machine translation, question answering, and summarization—all without task-specific training.''
+%\end{beamercolorbox}
+
+%\setbeamercolor{coloredboxstuff}{fg=black,bg=white!80!red}
+%\begin{beamercolorbox}[wd=1\textwidth,sep=1em]{coloredboxstuff}
+%	``Due to concerns about large language models being used to generate deceptive, biased, or abusive language at scale, we are only releasing a much smaller version of GPT-2 along with sampling code. We are not releasing the dataset, training code, or GPT-2 model weights.''
+%\end{beamercolorbox}
+
+%\begin{itemize}
+%	\item[-] \textbf{PR Focus} - reporters were given early information 
+%	\item[-] \textbf{Gatekeeping} - malicious uses were hypothesized and we have no way of testing  
+%%	\item[-] \textbf{Dual use} - OpenAI did not discuss dual-use technology
+%\end{itemize}
+
+%\end{frame}
+\section{Background}
+
+\subsection{\texttt{CTEXT} database}
+
+\section{Erroneous class}
+
+\begin{frame}{Text classifier}
+A transparent and very popular probability learning model that can be implemented efficiently\\
+\medskip
+The probability of a document $d$ being in class $c$, $P(c \mid d)$ is computed as:
+\begin{equation*}
+P(c \mid d) \propto P(c) \prod_{i = 1}^{m}P(t_i \mid c) 
+\end{equation*}
+and the class of a document $d$ is computed as:\\
+
+\begin{equation*}
+c_{MAP} = arg~max_{c \in \{c_1, c_2 \}} P(c \mid d)
+\end{equation*}
+
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.75\textwidth]{/home/knielbo/Documents/figures/covariance_doc_misclass.png}
+		\caption{some text here}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{/home/knielbo/Documents/figures/mclss_kld.png}
+	\caption{Average distance to error class is shorter}
+\end{figure}
+\begin{equation}
+D_{KL}(d_1 \mid d_2)  = \sum_{i = 1}^{n} d_{i1} \times \log_2 \frac{d_{i1}}{d_{i2}}
+\end{equation}
+\end{frame}
+
+
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{/home/knielbo/Documents/figures/mclss_mi.png}
+	\caption{}
+\end{figure}
+\end{frame}
+
+
+\section{Disruptive dynamics}
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{/home/knielbo/Documents/figures/shangshu_kld.png}
+	\caption{Lexical diversity}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=.75\textwidth]{../fig/diverge_matrix.png}
+	\caption{}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../fig/signals.png}
+	\caption{}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=.35\textwidth]{../fig/novelty_resonance.png}
+	\caption{}
+\end{figure}
+\end{frame}
+
+
+\section{Persistent dynamics}
+
+
+\section{Concluding remarks}
+
+
+
+

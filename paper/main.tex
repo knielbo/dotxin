@@ -1,0 +1,33 @@
+\input{sections/preamble}
+
+\begin{document}
+
+%{\begin{frame}[plain] \centering \titlepage \end{frame}}
+
+%\input{sections/outline}
+
+%\input{sections/myeye}
+
+
+\begingroup
+\makeatletter
+\setlength{\hoffset}{.5\beamer@sidebarwidth}
+\makeatother
+{\nologo
+\begin{frame}[plain]
+\titlepage
+\end{frame}
+}
+\endgroup
+
+
+\begin{frame}
+  \frametitle{Outline}
+	  \tableofcontents
+\end{frame}
+
+\input{sections/content}
+
+\input{sections/exit}
+
+\end{document}

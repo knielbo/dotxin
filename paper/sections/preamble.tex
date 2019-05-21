@@ -1,0 +1,90 @@
+\documentclass[8pt,xcolor={dvipsnames}]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage[outdir=./]{epstopdf}
+\usepackage{tcolorbox}
+\usepackage{rotating}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{mdframed}
+
+
+% quotation
+\usepackage{dirtytalk}
+
+% list spacing
+\usepackage{enumitem}
+
+% for code in box and w. text coloring
+\usepackage{color}
+\usepackage{fancyvrb}
+\fvset{frame=single,framesep=1mm,fontfamily=courier,fontsize=\scriptsize,numbers=left,framerule=.3mm,numbersep=1mm,commandchars=\\\{\}}
+
+%pseudo code
+\usepackage{algorithm,algorithmic}
+
+%% box and figures %%%
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, calc, quotes, tikzmark}
+
+% push text to bottom of page
+\newcommand{\btVFill}{\vskip0pt plus 1filll}
+
+% footnote size
+\let\oldfootnotesize\footnotesize
+\renewcommand*{\footnotesize}{\oldfootnotesize\tiny}
+
+% footnote without numbering for entire slide
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+\addtobeamertemplate{block begin}{\pgfsetfillopacity{0.5}}{\pgfsetfillopacity{1}}
+\addtobeamertemplate{block alerted begin}{\pgfsetfillopacity{0.5}}{\pgfsetfillopacity{1}}
+\addtobeamertemplate{block example begin}{\pgfsetfillopacity{0.5}}{\pgfsetfillopacity{1}}
+
+% suppress navigation symbols, keep frame number in red
+\setbeamertemplate{navigation symbols}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+%\setbeamercolor{footline}{fg=red}
+%\setbeamerfont{footline}{series=\bfseries}
+% basic aesthetics
+\setbeamertemplate{caption}[numbered]% figure numbering
+\newenvironment{changemargin}[2]{%
+  \begin{list}{}{%
+    \setlength{\topsep}{0pt}%
+    \setlength{\leftmargin}{#1}%
+    \setlength{\rightmargin}{#2}%
+    \setlength{\listparindent}{\parindent}%
+    \setlength{\itemindent}{\parindent}%
+    \setlength{\parsep}{\parskip}%
+  }%
+  \item[]}{\end{list}} 
+\usecolortheme{dove}
+\setbeamercolor{frametitle}{fg=red,bg=white}
+\usetheme{Goettingen}
+\useinnertheme{circles}
+\setbeamertemplate{navigation symbols}{\insertlogo}
+
+\logo{\includegraphics[height=1cm]{/home/knielbo/Pictures/au1.png}}
+% logo control
+\newcommand{\nologo}{\setbeamertemplate{logo}{}} 
+
+
+% METADATA
+\title{It is Just a Machine that Learns}
+\subtitle{}
+\author{Kristoffer L Nielbo\\\texttt{kln@cas.dk} \\\texttt{knielbo.github.io} \\\texttt{chcaa.io}}
+\date{}
+\institute{Center for Humanities Computing\\Aarhus University, Denmark}

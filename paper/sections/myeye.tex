@@ -1,0 +1,35 @@
+\begin{frame}[fragile]
+
+\begin{columns}
+\begin{column}{0.74\textwidth}
+\begin{Verbatim}
+\textbf{\textcolor{violet}{class} \textcolor{orange}{Person(}\textcolor{cyan}{object}\textcolor{orange}{)}:}
+    \textbf{\textcolor{violet}{def} \textcolor{cyan}{__init__}(\textcolor{orange}{self}, \textcolor{orange}{name}):}
+        \textbf{\textcolor{red}{self}.name = name}
+    \textbf{\textcolor{violet}{def} \textcolor{blue}{says_hello}(\textcolor{orange}{self}):}
+        \textbf{\textcolor{violet}{print} \textcolor{olive}{`Hello, my name is'}, \textcolor{red}{self}.name}
+
+\textbf{\textcolor{violet}{class} \textcolor{orange}{Researcher(}\textcolor{olive}{Person}\textcolor{orange}{)}:}
+    \textbf{\textcolor{violet}{def} \textcolor{cyan}{__init__}(\textcolor{orange}{self}, \textcolor{orange}{title}=\textcolor{orange}{None}, \textcolor{orange}{areas}=\textcolor{orange}{None}, **\textcolor{orange}{kwargs}):}
+        \textbf{\textcolor{cyan}{super}(Researcher, \textcolor{red}{self}).__init__(**kwargs)}
+        \textbf{\textcolor{red}{self}.title = title}
+        \textbf{\textcolor{red}{self}.areas = areas}
+
+\textbf{KLN = Researcher(\textcolor{orange}{name} = \textcolor{olive}{`Kristoffer L Nielbo'},\textbackslash}
+	\textbf{\textcolor{orange}{title} = \textcolor{olive}{`Associate professor'},\textbackslash}
+	\textbf{\textcolor{orange}{areas} = [\textcolor{olive}{`Humanities Computing'}, \textcolor{olive}{`Culture Analytics'}, \textcolor{olive}{`eScience'}])}
+
+\textbf{KLN.says_hello()}
+\end{Verbatim}
+\end{column}
+	\begin{column}{0.3\textwidth}
+	
+    		\begin{center}
+    			\fcolorbox{black}{yellow}{\includegraphics[scale=1.15]{/home/knielbo/Pictures/memyselfandeye/kln_atmonitor.png}}\\
+    			%\medskip    			
+    		\end{center}
+    		\medskip
+    		\smallskip
+	\end{column}
+\end{columns}
+\end{frame}

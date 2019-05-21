@@ -1,0 +1,175 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mss}[1996/10/28 MSS Program LaTeX style]
+\RequirePackage{ifthen}[1994/05/27]
+
+\newboolean{@draft}
+\DeclareOption{labels}{\setboolean{@timelist}{true}}
+%\DeclareOption{final}{\setboolean{@draft}{false}}
+%\DeclareOption{draft}{\setboolean{@draft}{true}}
+% if statements that were dependent on @draft are commented out
+
+\topmargin 0.7in
+\headheight 0.7in
+\headsep 0.3in
+\voffset -1.0in
+\textheight 7.25in
+\footskip .25in
+\textwidth 6.75in
+\oddsidemargin  0in
+\evensidemargin 0in
+\fboxrule .015in
+
+\if@twoside
+     \setlength\oddsidemargin   {0.0in}
+     \setlength\evensidemargin  {-0.3in}
+    % \setlength\marginparwidth  {85\p@}
+\else
+     \setlength\oddsidemargin   {0.0in}
+     \setlength\evensidemargin  {0.0in}
+    % \setlength\marginparwidth  {68\p@}
+\fi
+
+
+\pagestyle{empty}
+
+\ExecuteOptions{final}
+\ProcessOptions
+
+%\let\@timereq\relax
+\let\@category\relax
+\let\@comment\relax
+\let\@pnumber\relax
+\let\@addressone\relax
+\let\@addresstwo\relax
+\let\@authsone\relax
+\let\@authstwo\relax
+
+\newlength{\tlabelwidth}
+\settowidth{\tlabelwidth}{\bfseries 00\,min\hspace{1em}0:00}
+
+\newcounter{@talknumber}
+\newcounter{@timereq}
+\setcounter{@timereq}{15}
+
+\newcommand{\wn}{\ensuremath{\mathrm{cm}^{-1}}}  % quick wavenumber
+\newcommand{\nub}[1]{\ensuremath{\nu_{#1}}}      % quick state name
+\newcommand{\chem}[1]{\ensuremath{\mathrm{#1}}}  % Chem Formulae
+
+\newcommand{\sectionlabel}[1]{\def\@sesslabel{#1}}
+
+\newcommand{\timereq}[1]{\def\@timereq{#1}}
+\newcommand{\talknumber}[1]{\def\@talknumber{#1}}
+\newcommand{\category}[1]{\def\@category{#1}}
+\newcommand{\comment}[1]{\def\@comment{#1}}
+\newcommand{\pnumber}[1]{\def\@pnumber{#1}}
+
+\def\@authoraddress{}
+\def\@talktitle{}
+\def\and{\unskip,}
+\def\@pnumber{}
+\def\@sesslabel{}
+\def\@talknumber{}
+\def\@category{not specified}
+\def\@comment{}
+
+\renewcommand{\author}[1]{%
+ \ifx\@empty\@authoraddress%
+  \def\@authoraddress{#1, }%
+ \else%
+  \expandafter\def\expandafter\@authoraddress\expandafter%
+  {\@authoraddress{; #1, }}%
+ \fi%
+}%
+
+\newcommand\address[1]{%
+  \expandafter\def\expandafter\@authoraddress\expandafter%
+  {\@authoraddress{\itshape#1}}%
+}%
+
+%=====================================================
+%          Redefining command "maketitle"
+%=====================================================
+\renewcommand\maketitle{\par
+  \begingroup
+    \renewcommand\thefootnote{\alph{footnote}}%
+      \newpage
+      \global\@topnum\z@   % Prevents figures from going at top of page.
+      \@maketitle
+    %\fi
+    \@thanks
+  \endgroup
+  \setcounter{mpfootnote}{\value{footnote}}%
+  \let\thanks\relax
+  \let\maketitle\relax\let\@maketitle\relax
+  \gdef\@thanks{}
+  \gdef\@author{}
+  \gdef\@title{}%
+}
+
+\def\@maketitle{%
+\parbox[t]{\tlabelwidth}%
+{\raggedright\bfseries%
+%   \if@draft%
+%     \ifx\@empty\@sesslabel%
+%     \else%
+%       \@sesslabel%
+%     \fi%
+%     \ifx\@empty\@talknumber%
+%     \else%
+%       \ifthenelse{\value{@talknumber}<10}%
+%       {0\arabic{@talknumber}}%
+%       {\arabic{@talknumber} }%
+%     \fi%
+%   \fi%
+}
+
+\@title
+\vskip.5em%
+\begin{list}{}{\setlength{\rightmargin}{\leftmargin}}
+\item[]\ignorespaces%
+\@authoraddress\unskip.
+\end{list}
+}
+
+\renewenvironment{thebibliography}[1]
+     {\vspace{1em}{\bfseries \refname}\footnotesize
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \if@openbib
+              \advance\leftmargin\bibindent
+              \itemindent -\bibindent
+              \listparindent \itemindent
+              \parsep \z@
+            \fi
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \if@openbib
+        \renewcommand\newblock{\par}%
+      \else
+        \renewcommand\newblock{\hskip .11em \@plus.33em \@minus.07em}%
+      \fi
+      \sloppy\clubpenalty4000\widowpenalty4000%
+      \sfcode`\.=\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+\renewcommand{\@evenhead}{
+   \ifx\@empty\@pnumber%
+   \else%
+     \hfill\textbf{P\@pnumber}%
+   \fi}
+\renewcommand{\@oddhead}{\@evenhead}
+
+\AtBeginDocument{%
+  \flushleft\minipage{\columnwidth}%
+  \maketitle%
+  \small%
+}
+
+\AtEndDocument{
+  \endminipage\endflushleft
+}
