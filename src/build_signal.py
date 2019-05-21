@@ -8,6 +8,7 @@ import pickle
 from natsort import natsorted
 import numpy as np
 import utility as ut
+from build_dat import build_dat
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from scipy.ndimage.filters import gaussian_filter
@@ -151,12 +152,16 @@ def main():
     X = theta_target
     w = 3  # window length
     novelty, transience, resonance = build_signals(X, w=3)
+    transience[0][0] = 0.  # manual correctino due to nan in other signals
+    transience[1][0] = 0.
     Y = [novelty, transience, resonance]
-
-# signal plots
+    # epoch lines from index
+    epoch_index = [10, 26, 33]
+    epochs = ["prew", "war", "lweh", "han"]
+    # signal plots
     varname = ["$\\mathbb{N}ovelty$", "$\\mathbb{T}ransience$", "$\\mathbb{R}esonance$"]
     n = len(Y)
-    fig, ax = plt.subplots(1, n, figsize=(12, 3))
+    fig, ax = plt.subplots(1, n, figsize=(15, 4))
     ax = ax.ravel()
     W = int(4 * np.floor(n/20) + 1)
     for i, y in enumerate(Y):
@@ -169,6 +174,8 @@ def main():
         max_idx = nmax_idx(yhat, n=3)
         ymax = [yhat[j] for j in max_idx]
         xmax = [x[j] for j in max_idx]
+        for xi in epoch_index:
+            ax[i].axvline(x=xi, color="gray", linestyle=":", label=epochs[i])
         ax[i].scatter(xmax, ymax, marker="o", color="g", edgecolors="r", s=50)
         ax[i].fill_between(x, yhat-ysd, yhat+ysd, facecolor="gray", alpha=.5)
         ax[i].set_xlabel("$Chapter-index$", fontsize=14)
