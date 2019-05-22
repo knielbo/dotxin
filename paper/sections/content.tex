@@ -29,91 +29,187 @@
 \section{Background}
 
 \subsection{\texttt{CTEXT} database}
+{\nologo
+\begin{frame}{\texttt{CTEXT} database}
+\begin{columns}
+	\begin{column}{.5\textwidth}
+		Corpus of 96 Classical Chinese texts from the \texttt{CTEXT} database\\
+			-- $\sim$ 1000 BCE - 200 CE\\
+			-- $N$ tokens\\
+		\medskip
+		\emph{Shangshu} of 58 chapters:\\
+		\medskip
+		\begin{tabular}{l | c}
+			Period & Chapters \\
+			\hline
+			Pre-Warring & 10 \\
+			Warring & 16 \\
+			Late Warring - Early Han & 7\\
+			Han & 25 \\
+		\end{tabular}
+	\end{column}
+	\begin{column}{.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{../fig/graph_nx_community.png}
+		\end{figure}
+	\end{column}
+\end{columns}
+\blfootnote{Slingerland, E., Nichols, R., Nielbo, K., \& Logan, C. (2017). The Distant Reading of Religious Texts: A Big Data Approach to Mind-Body Concepts in Early China. Journal of the American Academy of Religion, 85(4), 985–1016.}
+\blfootnote{Nichols, R., Slingerland, E., Nielbo, K., Bergeton, U., Logan, C., \& Kleinman, S. (2018). Modeling the Contested Relationship between Analects, Mencius, and Xunzi: Preliminary Evidence from a Machine-Learning Approach. The Journal of Asian Studies, 77(01), 19–57.}
+\end{frame}
+}
+
 
 \section{Erroneous class}
-
-\begin{frame}{Text classifier}
-A transparent and very popular probability learning model that can be implemented efficiently\\
+\subsection{Classifier}
+\begin{frame}{Text-age (mis-)classifier}
+Train a simple and transparent learning model to explore the boundaries of age classification\\
+	-- compare age-central to age-peripheral chapters of the \emph{Shangshu}\\
+	-- ``misclassification semantics''\\ 
 \medskip
 The probability of a document $d$ being in class $c$, $P(c \mid d)$ is computed as:
 \begin{equation*}
 P(c \mid d) \propto P(c) \prod_{i = 1}^{m}P(t_i \mid c) 
 \end{equation*}
 and the class of a document $d$ is computed as:\\
-
-\begin{equation*}
+\begin{equation*}%Maximum A Posteriori Estimation
 c_{MAP} = arg~max_{c \in \{c_1, c_2 \}} P(c \mid d)
 \end{equation*}
-
 \end{frame}
 
+\subsection{Misclassification}
 \begin{frame}
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.75\textwidth]{/home/knielbo/Documents/figures/covariance_doc_misclass.png}
-		\caption{some text here}
+		\caption{Documents covariance matrix for all chapters of the \emph{Shangshu}}
 	\end{figure}
+Three documents from the \emph{Late Warring - Early Han} and one from \emph{Han} are age ambiguous\\ 
 \end{frame}
 
-
+\subsection{Document distance}
 \begin{frame}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{/home/knielbo/Documents/figures/mclss_kld.png}
-	\caption{Average distance to error class is shorter}
+	\caption{Average distance* to all classes show that the \textcolor{red}{error class} is closer to the document than the \textcolor{green}{correct class}}
 \end{figure}
-\begin{equation}
-D_{KL}(d_1 \mid d_2)  = \sum_{i = 1}^{n} d_{i1} \times \log_2 \frac{d_{i1}}{d_{i2}}
-\end{equation}
+
+The distance between documents $s^{(1)}$ and $s^{(2)}$:
+\begin{equation*}
+%D_{KL}(d_1 \mid d_2)  = \sum_{i = 1}^{n} d_{i1} \times \log_2 \frac{d_{i1}}{d_{i2}}
+D_{KL}(s^{(1)} \mid s^{(2)}) = \sum_{i = 1}^{K} s_i^{(1)} \times \log_2 \frac{s_i^{(1)}}{s_i^{(2)}}
+\end{equation*}
 \end{frame}
 
-
+\subsection{Erroneous features}
 \begin{frame}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{/home/knielbo/Documents/figures/mclss_mi.png}
-	\caption{}
+	\caption{Features that collectively are most central for classification. Signal from feature one is sufficient to explain the error.}
 \end{figure}
 \end{frame}
 
 
 \section{Disruptive dynamics}
-\begin{frame}
+\begin{frame}{Disruptive age effect}
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{/home/knielbo/Documents/figures/shangshu_kld.png}
-	\caption{Length normalized lexical density over time for the Shangshu}
+	\caption{Length normalized lexical density over time for the Shangshu, notice the change points around and laminar region during \emph{Late Warring - Early Han}}
 \end{figure}
 \end{frame}
 
 
+\subsection{Document representation}
+\begin{frame}{Dense document representation}
+-- model semantic disruption as ``variation on a theme''$\Rightarrow$ use a simple Bayesian model to capture lexical semantics\\
+\smallskip
+-- model each document as a distribution on lexical topics (e.g., {\small$P_1 = [0~.09~.78~.11~.2]$)}, where each `topic' is a distribution on words, and compare document similarity as the distance between any two documents with $chapter-index$ $j$ and $k$
+\smallskip
+\begin{equation*}
+D_{KL} (s^{(j)} \mid s^{(k)}) = \sum_{i = 1}^{K} s_i^{(j)} \times \log_2 \frac{s_i^{(j)}}{s_i^{(k)}}
+\end{equation*}
+-- bracket concrete semantics ($\sim$ reduce interpretive load) and only compare relative entropy between documents on topics (``variation on a theme'')\\
+\end{frame}
 
+
+\subsection{Qualitative similarities}
 \begin{frame}
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{../fig/diverge_matrix.png}
-	\caption{}
+	\caption{Distance matrix indicate some similarities with the sparse model (Fig. 1) especially for \emph{Late Warring - Early Han}.}
 \end{figure}
+%Distance between any two documents with $chapter-index$ $j$ and $k$
+%\begin{equation*}
+%	D_{KL} (s^{(j)} \mid s^{(k)}) = \sum_{i = 1}^{K} s_i^{(j)} \times \log_2 \frac{s_i^{(j)}}{s_i^{(k)}}
+%\end{equation*}
 \end{frame}
 
+
+{\nologo
+\subsection{Novelty \& resonance}
+\begin{frame}{Disruptive dynamics}
+Compute disruption as a combination of resonance on novelty:
+
+\medskip
+
+$\mathbb{N}$ovelty over window $w$:
+
+\begin{equation*}
+	\mathbb{N}_w (j) =  \frac{1}{w} \sum_{d=1}^{w}  D_{KL} (s^{(j)} \mid s^{(j - d)})
+\end{equation*}
+
+with $\mathbb{T}$ransience:
+
+\begin{equation*}
+\mathbb{T}_w (j) =  \frac{1}{w} \sum_{d=1}^{w}  D_{KL} (s^{(j)} \mid s^{(j + d)})
+\end{equation*}
+
+for $\mathbb{R}$esonance
+\begin{equation*}
+\mathbb{R}_w (j) = \mathbb{N}_w (j) - \mathbb{T}_w (j)
+\end{equation*}
+
+\blfootnote{Murdock, J., C. Allen, S. DeDeo. 2015. Exploration and Exploitation of Victorian Science in Darwin's Reading Notebooks. arXiv:1509.07175 .}
+\blfootnote{Nielbo, K.L., M.L. Perner, C Larsen, J Nielsen, Laursen D. 2019. Automated Compositional Change Detection in Saxo Grammaticus' Gesta Danorum. hal-02084682}
+\end{frame}
+}
+
+
+\subsection{Results}
 \begin{frame}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{../fig/signals.png}
-	\caption{}
+	\caption{\emph{Shangshu} Chapter's $\mathbb{N}$ovelty, $\mathbb{T}$ransience, and $\mathbb{R}$esonance for $w = 3$}
 \end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[width=.35\textwidth]{../fig/novelty_resonance.png}
-	\caption{}
-\end{figure}
+
+\begin{columns}
+	\begin{column}{.5\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=\textwidth]{../fig/novelty_resonance.png}
+			\caption{\emph{Shangshu} Chapter's $\mathbb{R}$esonance on $\mathbb{N}$ovelty for $w = 3$}
+		\end{figure}
+	\end{column}
+	\begin{column}{.5\textwidth}
+		-- \emph{Late Warring - Early Han} have ambiguous content in terms of age\\
+		-- lexical density shows global minimum and laminar behavior during \emph{Late Warring - Early Han}\\ 
+		-- two disruptive maxima are located in \emph{Late Warring - Early Han}\\
+		\medskip
+		-- saturation followed by innovation\\
+		-- class-dependent findings (study 1) confirmed by class-independent model (study 2)\\
+	\end{column}
+\end{columns}
+
+
+
 \end{frame}
 
-
-\section{Persistent dynamics}
-
-
-\section{Concluding remarks}
 
 
 
