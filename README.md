@@ -33,6 +33,7 @@ pdflatex main.tex
 ## Data ##
 
 `shangshu` contains the* Shangshu* in four sub-directories for age-based prediction  
-`slingerland_coprus` contains the full *CTEXT* corpus for 
+`slingerland_coprus` contains the full *CTEXT* corpus for
+
 	- Slingerland, E., Nichols, R., Nielbo, K., & Logan, C. (2017). The Distant Reading of Religious Texts: A Big Data Approach to Mind-Body Concepts in Early China. Journal of the American Academy of Religion, 85(4), 985–1016.
 	- Nichols, R., Slingerland, E., Nielbo, K., Bergeton, U., Logan, C., & Kleinman, S. (2018). Modeling the Contested Relationship between Analects, Mencius, and Xunzi: Preliminary Evidence from a Machine-Learning Approach. The Journal of Asian Studies, 77(01), 19–57.
