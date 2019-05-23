@@ -1,31 +1,5 @@
-% SHORTCUTS
-	%\fcolorbox{black}{yellow}{}
+%%% PART 1 %%%
 
-%%%%% PRELUDE %%%%%
-%\section{On Artificial Intelligence}
-
-
-%\subsection{Food to media hype}
-%\begin{frame}{OpenAI's transformer-based model}
-
-%\setbeamercolor{coloredboxstuff}{fg=black,bg=white!80!green}
-%\begin{beamercolorbox}[wd=1\textwidth,sep=1em]{coloredboxstuff}
-%	\textcolor{red}{\textbf{OpenAI on GPT-2}}\\
-%	``We've trained a large-scale unsupervised language model which generates coherent paragraphs of text, achieves state-of-the-art performance on many language modeling benchmarks, and performs rudimentary reading comprehension, machine translation, question answering, and summarization—all without task-specific training.''
-%\end{beamercolorbox}
-
-%\setbeamercolor{coloredboxstuff}{fg=black,bg=white!80!red}
-%\begin{beamercolorbox}[wd=1\textwidth,sep=1em]{coloredboxstuff}
-%	``Due to concerns about large language models being used to generate deceptive, biased, or abusive language at scale, we are only releasing a much smaller version of GPT-2 along with sampling code. We are not releasing the dataset, training code, or GPT-2 model weights.''
-%\end{beamercolorbox}
-
-%\begin{itemize}
-%	\item[-] \textbf{PR Focus} - reporters were given early information 
-%	\item[-] \textbf{Gatekeeping} - malicious uses were hypothesized and we have no way of testing  
-%%	\item[-] \textbf{Dual use} - OpenAI did not discuss dual-use technology
-%\end{itemize}
-
-%\end{frame}
 \section{Background}
 
 \subsection{\texttt{CTEXT} database}
@@ -60,13 +34,20 @@
 \end{frame}
 }
 
+%%% PART 2 %%%
 
 \section{Erroneous class}
+
 \subsection{Classifier}
 \begin{frame}{Text-age (mis-)classifier}
-Train a simple and transparent learning model to explore the boundaries of age classification\\
-	-- compare age-central to age-peripheral chapters of the \emph{Shangshu}\\
-	-- ``misclassification semantics''\\ 
+\setbeamercolor{coloredboxstuff}{fg=black,bg=white!80!yellow}
+\begin{beamercolorbox}[wd=1\textwidth,sep=1em]{coloredboxstuff}
+Train a simple and transparent learning model to explore the boundaries of age classification
+\end{beamercolorbox}
+	\begin{itemize}
+		\item[-] compare age-central to age-peripheral chapters of the \emph{Shangshu}
+		\item[-] \textcolor{red}{error semantics} of the \emph{Shangshu}
+	\end{itemize}
 \medskip
 The probability of a document $d$ being in class $c$, $P(c \mid d)$ is computed as:
 \begin{equation*}
@@ -95,7 +76,6 @@ Three documents from the \emph{Late Warring - Early Han} and one from \emph{Han}
 	\includegraphics[width=\textwidth]{/home/knielbo/Documents/figures/mclss_kld.png}
 	\caption{Average distance* to all classes show that the \textcolor{red}{error class} is closer to the document than the \textcolor{green}{correct class}}
 \end{figure}
-
 The distance between documents $s^{(1)}$ and $s^{(2)}$:
 \begin{equation*}
 %D_{KL}(d_1 \mid d_2)  = \sum_{i = 1}^{n} d_{i1} \times \log_2 \frac{d_{i1}}{d_{i2}}
@@ -112,8 +92,10 @@ D_{KL}(s^{(1)} \mid s^{(2)}) = \sum_{i = 1}^{K} s_i^{(1)} \times \log_2 \frac{s_
 \end{figure}
 \end{frame}
 
+%%% PART %%%
 
 \section{Disruptive dynamics}
+
 \begin{frame}{Disruptive age effect}
 \begin{figure}
 	\centering
@@ -122,12 +104,11 @@ D_{KL}(s^{(1)} \mid s^{(2)}) = \sum_{i = 1}^{K} s_i^{(1)} \times \log_2 \frac{s_
 \end{figure}
 \end{frame}
 
-
 \subsection{Document representation}
 \begin{frame}{Dense document representation}
 -- model semantic disruption as ``variation on a theme''$\Rightarrow$ use a simple Bayesian model to capture lexical semantics\\
 \smallskip
--- model each document as a distribution on lexical topics (e.g., {\small$P_1 = [0~.09~.78~.11~.2]$)}, where each `topic' is a distribution on words, and compare document similarity as the distance between any two documents with $chapter-index$ $j$ and $k$
+-- model each document as a distribution on lexical topics (e.g., {\small$P_1 = [0~.09~.78~.11~.2]$)}, where each `topic' is a distribution on words, and compare document similarity as the distance between any two documents with $chapter-index$ $j$ and $k$:\\
 \smallskip
 \begin{equation*}
 D_{KL} (s^{(j)} \mid s^{(k)}) = \sum_{i = 1}^{K} s_i^{(j)} \times \log_2 \frac{s_i^{(j)}}{s_i^{(k)}}
@@ -135,69 +116,55 @@ D_{KL} (s^{(j)} \mid s^{(k)}) = \sum_{i = 1}^{K} s_i^{(j)} \times \log_2 \frac{s
 -- bracket concrete semantics ($\sim$ reduce interpretive load) and only compare relative entropy between documents on topics (``variation on a theme'')\\
 \end{frame}
 
-
 \subsection{Qualitative similarities}
 \begin{frame}
 \begin{figure}
 	\centering
 	\includegraphics[width=.75\textwidth]{../fig/diverge_matrix.png}
-	\caption{Distance matrix indicate some similarities with the sparse model (Fig. 1) especially for \emph{Late Warring - Early Han}.}
+	\caption{Distance matrix indicate some similarities with the sparse model (Fig. 1), notice the disruptive effect of \emph{Late Warring - Early Han} centered on $i = 30$.}
 \end{figure}
-%Distance between any two documents with $chapter-index$ $j$ and $k$
-%\begin{equation*}
-%	D_{KL} (s^{(j)} \mid s^{(k)}) = \sum_{i = 1}^{K} s_i^{(j)} \times \log_2 \frac{s_i^{(j)}}{s_i^{(k)}}
-%\end{equation*}
 \end{frame}
-
 
 {\nologo
 \subsection{Novelty \& resonance}
 \begin{frame}{Disruptive dynamics}
 Compute disruption as a combination of resonance on novelty:
-
 \medskip
-
 $\mathbb{N}$ovelty over window $w$:
-
 \begin{equation*}
 	\mathbb{N}_w (j) =  \frac{1}{w} \sum_{d=1}^{w}  D_{KL} (s^{(j)} \mid s^{(j - d)})
 \end{equation*}
-
 with $\mathbb{T}$ransience:
-
 \begin{equation*}
 \mathbb{T}_w (j) =  \frac{1}{w} \sum_{d=1}^{w}  D_{KL} (s^{(j)} \mid s^{(j + d)})
 \end{equation*}
-
 for $\mathbb{R}$esonance
 \begin{equation*}
 \mathbb{R}_w (j) = \mathbb{N}_w (j) - \mathbb{T}_w (j)
-\end{equation*}
-
+\end{equation*}s
 \blfootnote{Murdock, J., C. Allen, S. DeDeo. 2015. Exploration and Exploitation of Victorian Science in Darwin's Reading Notebooks. arXiv:1509.07175 .}
 \blfootnote{Nielbo, K.L., M.L. Perner, C Larsen, J Nielsen, Laursen D. 2019. Automated Compositional Change Detection in Saxo Grammaticus' Gesta Danorum. hal-02084682}
 \end{frame}
 }
-
 
 \subsection{Results}
 \begin{frame}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{../fig/signals.png}
-	\caption{\emph{Shangshu} Chapter's $\mathbb{N}$ovelty, $\mathbb{T}$ransience, and $\mathbb{R}$esonance for $w = 3$}
+	\caption{\emph{Shangshu} Chapters' $\mathbb{N}$ovelty, $\mathbb{T}$ransience, and $\mathbb{R}$esonance for $w = 3$}
 \end{figure}
-
 \begin{columns}
 	\begin{column}{.5\textwidth}
 		\begin{figure}
 			\centering
 			\includegraphics[width=\textwidth]{../fig/novelty_resonance.png}
-			\caption{\emph{Shangshu} Chapter's $\mathbb{R}$esonance on $\mathbb{N}$ovelty for $w = 3$}
+			\caption{\emph{Shangshu} Chapters' $\mathbb{R}$esonance on $\mathbb{N}$ovelty for $w = 3$}
 		\end{figure}
 	\end{column}
 	\begin{column}{.5\textwidth}
-		-- \emph{Late Warring - Early Han} have ambiguous content in terms of age\\
+		\textcolor{blue}{\emph{in conclusion}}\\
+		-- \emph{Late Warring - Early Han} display age class atypical behavior \\
 		-- lexical density shows global minimum and laminar behavior during \emph{Late Warring - Early Han}\\ 
 		-- two disruptive maxima are located in \emph{Late Warring - Early Han}\\
 		\medskip
@@ -205,12 +172,4 @@ for $\mathbb{R}$esonance
 		-- class-dependent findings (study 1) confirmed by class-independent model (study 2)\\
 	\end{column}
 \end{columns}
-
-
-
 \end{frame}
-
-
-
-
-
