@@ -7,4 +7,27 @@ Three papers on the **CTEXT** data set:
 	- Nichols
 	- Nielbo
 
-This repository contains code and paper for Nielbo.
+This repository contains code and paper for Nielbo. Code is only for demonstration purpose.
+
+
+## Replication ##
+
+```bash
+
+cd src
+./main.sh
+
+```
+
+Notice that the training lexical model will utilize all available cores to run a grid search for hyper-parameters, which is resource/time consuming. Consider using the provided model and only running the individual scripts.
+
+## Presentation ##
+
+```bash
+
+cd paper
+pdflatex main.tex
+
+```
+
+## Data ##
