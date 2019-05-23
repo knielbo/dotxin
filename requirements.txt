@@ -1,0 +1,14 @@
+###### Requirements without Version Specifiers ######
+scikit-learn
+matplotlib
+natsort
+networkx
+pinyin
+community
+Pandas
+gensim
+###### Requirements with Version Specifiers ######
+Python >= 3.5
+NumPy >= 1.11.0
+SciPy >= 0.17.0
+joblib >= 0.11
