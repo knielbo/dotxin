@@ -69,7 +69,14 @@ def divergence_matrix(X, fname="divergence_matrix.png"):
     fig = plt.figure()
     ax = fig.add_subplot(111)
     # add Gaussian filter for smoothning
-    cax = ax.imshow(gaussian_filter(np.rot90(dX), sigma=1), cmap="hot")
+    # cax = ax.imshow(gaussian_filter(np.rot90(dX), sigma=1), cmap="hot")
+    cax = ax.imshow(gaussian_filter(dX, sigma=1.5), cmap="hot")
+
+    epoch_index = [10, 26, 33]
+    for epoch in epoch_index:
+        ax.axvline(x=epoch, color="green", linewidth=1.5)
+        ax.axhline(y=epoch, color="green", linewidth=1.5)
+    #TODO: add age lines here
     fig.colorbar(cax)
     ax.set_xlabel('$Chapter-Index$')
     ax.set_ylabel('$Chapter-Index$')
